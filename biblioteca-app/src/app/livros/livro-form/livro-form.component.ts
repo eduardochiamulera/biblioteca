@@ -21,9 +21,9 @@ export class LivroFormComponent implements OnInit {
   assuntos: Array<any> = [];
   livroId: number = 0;
 
-  constructor(private livroService: LivroServico, 
-              private autorService: AutorServico, 
-              private assuntoService: AssuntoServico, 
+  constructor(private livroServico: LivroServico, 
+              private autorServico: AutorServico, 
+              private assuntoServico: AssuntoServico, 
               private route: ActivatedRoute,
               private toastr: ToastrService, 
               private router: Router) {
@@ -44,7 +44,7 @@ export class LivroFormComponent implements OnInit {
   }
 
   buscarAutores(): void {
-    this.autorService.buscarTodos().subscribe(
+    this.autorServico.buscarTodos().subscribe(
       (data: Array<any>) => {
         if (this.livro.autores != null) {
           data.forEach(a => a.checked = (this.livro.autores as Array<any>).some(au => au.id == a.id));
@@ -58,7 +58,7 @@ export class LivroFormComponent implements OnInit {
   }
 
   buscarAssuntos(): void {
-    this.assuntoService.buscarTodos().subscribe(
+    this.assuntoServico.buscarTodos().subscribe(
       (data: Array<any>) => {
         if (this.livro.assuntos != null) {
           data.forEach(a => a.checked = (this.livro.assuntos as Array<any>).some(au => au.id == a.id));
@@ -72,7 +72,7 @@ export class LivroFormComponent implements OnInit {
   }
 
   buscarPorCodigo(): void {
-    this.livroService.buscarPorCodigo(this.livroId).subscribe(
+    this.livroServico.buscarPorCodigo(this.livroId).subscribe(
       (data) => {
         this.livro = data;
 
@@ -85,11 +85,26 @@ export class LivroFormComponent implements OnInit {
   }
 
   finalizar(): void {
-    if (this.livro.titulo == null || this.livro.titulo == '') {
+    if(!this.livro.titulo || this.livro.titulo.trim() === '') {
       this.toastr.error('Campo título é obrigatório');
       return;
     }
 
+    if(this.livro.editora == null || this.livro.editora.trim() == '') {
+      this.toastr.error('Campo editora é obrigatório');
+      return;
+    }
+
+    if(this.livro.edicao == null) {
+      this.toastr.error('Campo edição é obrigatório');
+      return;
+    }
+
+    if(this.livro.anoPublicacao == null) {
+      this.toastr.error('Campo ano publicação é obrigatório');
+      return;
+    }
+    
     let autores = this.autores.filter((autor) => autor.checked);
     this.livro.autoresIds = autores.map(a => a.id);
 
@@ -97,11 +112,11 @@ export class LivroFormComponent implements OnInit {
     this.livro.assuntosIds = assuntos.map(a => a.id);
 
     if (this.livroId == 0) {
-      this.handleResponse(this.livroService.cadastrar(this.livro));
+      this.handleResponse(this.livroServico.cadastrar(this.livro));
       return;
     }
 
-    this.handleResponse(this.livroService.atualizar(this.livroId, this.livro));
+    this.handleResponse(this.livroServico.atualizar(this.livroId, this.livro));
   }
 
   handleResponse(request: Observable<any>): any {

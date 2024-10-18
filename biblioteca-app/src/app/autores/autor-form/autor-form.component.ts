@@ -18,12 +18,12 @@ export class AutorFormComponent {
   autor: any = {};
   autorId: number = 0;
 
-  constructor(private autorService: AutorServico, private route: ActivatedRoute,
+  constructor(private autorServico: AutorServico, private rota: ActivatedRoute,
     private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.rota.params.subscribe(params => {
       let assuntoId = params['id'];
       if (assuntoId == null) return;
       this.autorId = assuntoId;
@@ -32,7 +32,7 @@ export class AutorFormComponent {
   }
 
   buscarPorCodigo(): void {
-    this.autorService.buscarPorCodigo(this.autorId).subscribe(
+    this.autorServico.buscarPorCodigo(this.autorId).subscribe(
       (data) => {
         this.autor = data;
       },
@@ -48,11 +48,11 @@ export class AutorFormComponent {
     }
 
     if (this.autorId == 0) {
-      this.handleResponse(this.autorService.cadastrar(this.autor));
+      this.handleResponse(this.autorServico.cadastrar(this.autor));
       return;
     }
 
-    this.handleResponse(this.autorService.atualizar(this.autorId, this.autor));
+    this.handleResponse(this.autorServico.atualizar(this.autorId, this.autor));
   }
 
   handleResponse(request: Observable<any>): any {

@@ -18,6 +18,10 @@ export class RelatorioAutorComponent {
     this.carregarRelatorio();
   }
 
+  imprimir() {
+    window.print();
+  }
+
   carregarRelatorio(): void {
     this.relatorioServico.buscar().subscribe(
       (data) => {

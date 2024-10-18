@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LivroServico } from '../livro-service';
 import { ToastrService } from 'ngx-toastr';
-import { ModalConfirmacaoService } from '../../core/modal-confirmacao-service';
+import { ModalConfirmacaoServico } from '../../core/modal-confirmacao-service';
 
 @Component({
   selector: 'app-livro-list',
@@ -11,14 +11,14 @@ import { ModalConfirmacaoService } from '../../core/modal-confirmacao-service';
   imports: [CommonModule, RouterLink],
   templateUrl: './livro-list.component.html',
   styleUrl: './livro-list.component.css',
-  providers: [ModalConfirmacaoService]
+  providers: [ModalConfirmacaoServico]
 })
 export class LivroListComponent implements OnInit {
   livros: any[] = [];
   
   constructor(private livroServico: LivroServico, 
               private toastr: ToastrService,
-              private modalConfirmacaoService: ModalConfirmacaoService) {
+              private modalConfirmacaoService: ModalConfirmacaoServico) {
   }
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalConfirmacaoComponent } from './modal-confirmacao/modal-confirmacao.component';
 
 @Injectable()
-export class ModalConfirmacaoService {
+export class ModalConfirmacaoServico {
 
   constructor(private modalService: NgbModal) { }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AssuntoServico } from '../assunto.service';
 import { ToastrService } from 'ngx-toastr';
-import { ModalConfirmacaoService } from '../../core/modal-confirmacao-service';
+import { ModalConfirmacaoServico } from '../../core/modal-confirmacao-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -11,14 +11,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './assunto-list.component.html',
   styleUrl: './assunto-list.component.css',
-  providers: [ModalConfirmacaoService]
+  providers: [ModalConfirmacaoServico]
 })
 export class AssuntoListComponent implements OnInit {
 
   assuntos: any[] = [];
 
-  constructor(private assuntoService: AssuntoServico,
-              private modalConfirmacaoService: ModalConfirmacaoService,
+  constructor(private assuntoServico: AssuntoServico,
+              private modalConfirmacaoServico: ModalConfirmacaoServico,
               private toastr: ToastrService) {
   }
 
@@ -27,7 +27,7 @@ export class AssuntoListComponent implements OnInit {
   }
 
   carregar(): void {
-    this.assuntoService.buscarTodos().subscribe(
+    this.assuntoServico.buscarTodos().subscribe(
       (data) => {
         this.assuntos = data;
       },
@@ -38,7 +38,7 @@ export class AssuntoListComponent implements OnInit {
   }
 
   confirmarExcluir(id: number){
-    this.modalConfirmacaoService.confirm('Continuar..', 'Tem certeza que deseja deletar o assunto?', 'Confirmar', 'Cancelar', 'lg')
+    this.modalConfirmacaoServico.confirm('Continuar..', 'Tem certeza que deseja deletar o assunto?', 'Confirmar', 'Cancelar', 'lg')
     .then((confirmado) => {
       if(confirmado){
         this.excluir(id);
@@ -48,7 +48,7 @@ export class AssuntoListComponent implements OnInit {
   }
 
   private excluir(id: number) {
-    this.assuntoService.deletar(id).subscribe(
+    this.assuntoServico.deletar(id).subscribe(
       (data) => {
         this.toastr.error('Deletado com sucesso');
         this.assuntos = this.assuntos.filter( x => x.id !== id)

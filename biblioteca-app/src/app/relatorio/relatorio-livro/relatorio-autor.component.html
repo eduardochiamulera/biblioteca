@@ -1,15 +1,19 @@
+<div class="container mb-5 no-print">
+  <button (click)="imprimir()" class="btn btn-primary float-end">Imprimir</button>
+</div>
+
 <div class="container" *ngFor="let autor of autores">
   <h2 class="text-center">{{ autor.autor }}</h2>
   <div *ngIf="autor.livros == null || autor.livros.length == 0">Não há livros</div>
-  
-  <table class="table table-striped" *ngIf="autor.livros != null && autor.livros.length > 0">
+  <div class="table-responsive">
+    <table class="table table-striped" *ngIf="autor.livros != null && autor.livros.length > 0">
       <thead>
           <tr>
-              <th scope="col">Título</th>
-              <th scope="col">Editora</th>
-              <th scope="col">Edição</th>
-              <th scope="col">Ano Publicação</th>
-              <th scope="col">Assuntos</th>
+            <th scope="col" class="col-3">Título</th>
+            <th scope="col" class="col-3">Editora</th>
+            <th scope="col" class="col-1">Edição</th>
+            <th scope="col" class="col-2">Ano Publicação</th>
+            <th scope="col" class="col-4">Assuntos</th>
           </tr>
       </thead>
       <tbody>
@@ -22,4 +26,5 @@
           </tr>
       </tbody>
   </table>
+  </div>
 </div>

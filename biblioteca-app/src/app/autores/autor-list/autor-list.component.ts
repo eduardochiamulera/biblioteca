@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AutorServico } from '../autor.service';
 import { ToastrService } from 'ngx-toastr';
-import { ModalConfirmacaoService } from '../../core/modal-confirmacao-service';
+import { ModalConfirmacaoServico } from '../../core/modal-confirmacao-service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -11,14 +11,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './autor-list.component.html',
   styleUrl: './autor-list.component.css',
-  providers: [ModalConfirmacaoService]
+  providers: [ModalConfirmacaoServico]
 })
 export class AutorListComponent implements OnInit {
 
   autores: any[] = [];
 
-  constructor(private autorService: AutorServico,
-              private modalConfirmacaoService: ModalConfirmacaoService,
+  constructor(private autorServico: AutorServico,
+              private modalConfirmacaoServico: ModalConfirmacaoServico,
               private toastr: ToastrService) {
   }
 
@@ -27,7 +27,7 @@ export class AutorListComponent implements OnInit {
   }
 
   carregar(): void {
-    this.autorService.buscarTodos().subscribe(
+    this.autorServico.buscarTodos().subscribe(
       (data) => {
         this.autores = data;
       },
@@ -38,7 +38,7 @@ export class AutorListComponent implements OnInit {
   }
 
   confirmarExcluir(id: number){
-    this.modalConfirmacaoService.confirm('Continuar..', 'Tem certeza que deseja deletar o autor?', 'Confirmar', 'Cancelar', 'lg')
+    this.modalConfirmacaoServico.confirm('Continuar..', 'Tem certeza que deseja deletar o autor?', 'Confirmar', 'Cancelar', 'lg')
     .then((confirmado) => {
       if(confirmado){
         this.excluir(id);
@@ -48,7 +48,7 @@ export class AutorListComponent implements OnInit {
   }
 
   private excluir(id: number) {
-    this.autorService.deletar(id).subscribe(
+    this.autorServico.deletar(id).subscribe(
       (data) => {
         this.toastr.error('Deletado com sucesso');
         this.autores = this.autores.filter( x => x.id !== id)

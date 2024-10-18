@@ -1,7 +1,6 @@
 <div class="container">
-    <a routerLink="/livros/novo" class="btn btn-primary">Cadastrar Livro</a>
+    <a routerLink="/livros/novo" class="btn btn-primary float-end">Novo</a>
   </div>
-  <div class="container">
   
     <table class="table">
       <thead>
@@ -10,7 +9,7 @@
           <th scope="col">Editora</th>
           <th scope="col">Edição</th>
           <th scope="col">Ano Publicação</th>
-          <th scope="col">Operações</th>
+          <th scope="col">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -19,9 +18,17 @@
           <td>{{livro.editora}}</td>
           <td>{{livro.edicao}}</td>
           <td>{{livro.anoPublicacao}}</td>
-          <td><a class="btn btn-primary" [routerLink]="['/livros/edit',livro.codigo]">Editar</a> | <a class="btn btn-danger"
-              (click)="confirmarExcluir(livro.codigo)">Deletar</a></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  &#x22EE;
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" [routerLink]="['/livros/edit',livro.codigo]">Editar</a></li>
+                  <li><a class="dropdown-item" (click)="confirmarExcluir(livro.codigo)">Deletar</a></li>
+              </ul>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
-  </div>

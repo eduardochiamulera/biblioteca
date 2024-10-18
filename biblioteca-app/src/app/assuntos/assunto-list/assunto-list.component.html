@@ -1,20 +1,29 @@
 <div class="container">
-    <a routerLink="/assuntos/novo" class="btn btn-primary">Cadastrar Assunto</a>
+    <a routerLink="/assuntos/novo" class="btn btn-primary float-end">Novo</a>
 </div>
-<div class="container">
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Descrição</th>
-                <th scope="col">Operações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let assunto of assuntos">
-                <td>{{assunto.descricao}}</td>
-                <td><a class="btn btn-primary" [routerLink]="['/assuntos/edicao',assunto.id]">Editar</a> | <a class="btn btn-danger" (click)="confirmarExcluir(assunto.id)">Deletar</a></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assunto of assuntos">
+                    <td>{{assunto.descricao}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                &#x22EE;
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><a class="dropdown-item" [routerLink]="['/assuntos/edicao', assunto.id]">Editar</a></li>
+                                <li><a class="dropdown-item" (click)="confirmarExcluir(assunto.id)">Deletar</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
