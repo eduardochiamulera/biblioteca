@@ -1,26 +1,25 @@
 <div class="container" *ngFor="let autor of autores">
-
-    <h2>{{autor.autor}}</h2>
+  <h2 class="text-center">{{ autor.autor }}</h2>
+  <div *ngIf="autor.livros == null || autor.livros.length == 0">Não há livros</div>
   
-    <div *ngIf="autor.livros == null || autor.livros.length == 0">Não há livros</div>
-    <table class="table" *ngIf="autor.livros != null && autor.livros.length > 0">
+  <table class="table table-striped" *ngIf="autor.livros != null && autor.livros.length > 0">
       <thead>
-        <tr>
-          <th scope="col">Titulo</th>
-          <th scope="col">Editora</th>
-          <th scope="col">Edição</th>
-          <th scope="col">Ano Publicação</th>
-          <th scope="col">Assuntos</th>
-        </tr>
+          <tr>
+              <th scope="col">Título</th>
+              <th scope="col">Editora</th>
+              <th scope="col">Edição</th>
+              <th scope="col">Ano Publicação</th>
+              <th scope="col">Assuntos</th>
+          </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let livro of autor.livros">
-          <td>{{livro.titulo}}</td>
-          <td>{{livro.editora}}</td>
-          <td>{{livro.edicao}}</td>
-          <td>{{livro.anoPublicacao}}</td>
-          <td>{{livro.assuntos}}</td>
-        </tr>
+          <tr *ngFor="let livro of autor.livros">
+              <td>{{ livro.titulo }}</td>
+              <td>{{ livro.editora }}</td>
+              <td>{{ livro.edicao }}</td>
+              <td>{{ livro.anoPublicacao }}</td>
+              <td>{{ livro.assuntos }}</td>
+          </tr>
       </tbody>
-    </table>
-  </div>
+  </table>
+</div>

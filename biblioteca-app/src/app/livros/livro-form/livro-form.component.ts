@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AutorServico } from '../../autores/autor.service';
 import { AssuntoServico } from '../../assuntos/assunto.service';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LivroServico } from '../livro-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-livrocomponent',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink, RouterLinkActive],
   templateUrl: './livro-form.component.html',
   styleUrl: './livro-form.component.css'
 })

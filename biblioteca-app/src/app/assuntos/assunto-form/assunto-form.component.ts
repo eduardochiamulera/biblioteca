@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AssuntoServico } from '../assunto.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from "@angular/router"
 import { Observable, catchError, tap } from 'rxjs';
@@ -10,7 +10,7 @@ import { Observable, catchError, tap } from 'rxjs';
 @Component({
   selector: 'app-assunto.form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './assunto-form.component.html',
   styleUrl: './assunto-form.component.css'
 })
