@@ -34,8 +34,8 @@ builder.Services.AddCors( options =>
     options.AddPolicy( name: "BibliotecaCors",
                       policy =>
                       {
-                          policy.WithOrigins( "http://localhost:4200" )
-                          .AllowAnyHeader()
+						  policy.WithOrigins("http://localhost:4200")
+						  .AllowAnyHeader()
                           .AllowAnyMethod();
                       } );
 } );
@@ -54,8 +54,8 @@ if( app.Environment.IsDevelopment() )
     app.UseSwaggerUI();
 };
 
+app.UseCors("BibliotecaCors");
 app.UseExceptionHandler();
-app.UseCors( "BibliotecaCors" );
 
 // Configure the HTTP request pipeline.
 

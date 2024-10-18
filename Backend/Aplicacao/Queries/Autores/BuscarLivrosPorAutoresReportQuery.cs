@@ -9,11 +9,11 @@ namespace Aplicacao.Queries.Autores
     public record LivrosPorAutorQueryResultado( string Autor, IEnumerable<LivroReportQueryResultado> Livros );
     public record BuscarLivrosPorAutoresReportQuery : IRequest<IEnumerable<LivrosPorAutorQueryResultado>>;
 
-    public class GetLivrosGroupedByAutorReportQueryHandler( BibliotecaContexto contexto ) : IRequestHandler<BuscarLivrosPorAutoresReportQuery, IEnumerable<LivrosPorAutorQueryResultado>>
+    public class BuscarLivrosGroupedByAutorReportQueryHandler( BibliotecaContexto contexto ) : IRequestHandler<BuscarLivrosPorAutoresReportQuery, IEnumerable<LivrosPorAutorQueryResultado>>
     {
         public async Task<IEnumerable<LivrosPorAutorQueryResultado>> Handle( BuscarLivrosPorAutoresReportQuery request, CancellationToken cancellationToken )
         {
-            var sql = @"SELECT A.Cod AS CodigoAutor, 
+            var sql = @"SELECT A.Cod AS CodigoAutor 
                                ,A.Nome
                                ,L.Titulo
                                ,L.Editora
@@ -22,21 +22,21 @@ namespace Aplicacao.Queries.Autores
                                ,AST.Descricao,
                                L.CodL AS CodigoLivro 
                         FROM Autor A
-                        LEFT JOIN LivroAutor LA 
-                            on LA.AutorId = A.Cod
+                        LEFT JOIN Livro_Autor LA 
+                            on LA.Autor_CodAu = A.Cod
                         LEFT JOIN Livro L 
-                            on L.Cod = LA.LivroId
-                        LEFT JOIN LivroAssunto LAS 
-                            on LAS.LivroId = L.Cod
+                            on L.CodL = LA.Livro_CodL
+                        LEFT JOIN Livro_Assunto LAS 
+                            on LAS.Livro_CodL = L.CodL
                         LEFT JOIN Assunto AST 
-                            on AST.CodAs = LAS.AssuntoId";
+                            on AST.CodAs = LAS.Assunto_CodAs";
 
             var result = await contexto.Database.GetDbConnection().QueryAsync<QueryResult>( sql );
 
-            return result.GroupBy( x => x.CodAutor ).Select( x => new LivrosPorAutorQueryResultado
+            return result.GroupBy( x => x.CodigoAutor ).Select( x => new LivrosPorAutorQueryResultado
             (
                 Autor: x.FirstOrDefault()?.Nome,
-                Livros: x.Where( l => l.CodLivro != 0 ).GroupBy( l => l.CodLivro ).Select( l =>
+                Livros: x.Where( l => l.CodigoLivro != 0 ).GroupBy( l => l.CodigoLivro ).Select( l =>
                 {
                     var firstLivro = l.FirstOrDefault();
 
@@ -52,15 +52,14 @@ namespace Aplicacao.Queries.Autores
 
         sealed record QueryResult
         {
-            public int CodAutor { get; set; }
-            public int Name { get; set; }
+            public int CodigoAutor { get; set; }
             public string Descricao { get; set; }
             public string AnoPublicacao { get; set; }
             public string Titulo { get; set; }
             public string Editora { get; set; }
             public int Edicao { get; set; }
             public string Nome { get; set; }
-            public int CodLivro { get; set; }
+            public int CodigoLivro { get; set; }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Aplicacao.Responses;
+using Core.Enumeradores;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

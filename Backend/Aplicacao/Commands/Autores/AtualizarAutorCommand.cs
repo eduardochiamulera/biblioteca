@@ -1,5 +1,6 @@
 ﻿using Aplicacao.Responses;
 using Core.Entidades;
+using Core.Enumeradores;
 using Core.Repositorios;
 using MediatR;
 

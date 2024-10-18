@@ -1,6 +1,7 @@
 ﻿using Aplicacao.DTOS.Requests;
 using Aplicacao.Responses;
 using Core.Entidades;
+using Core.Enumeradores;
 using Core.Repositorios;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
