@@ -1,0 +1,10 @@
+.container-gray{
+    background-color: #e1dddd;
+    padding: 20px;
+    margin:10px 0 20px 0;
+    border-radius: 5px;
+}
+
+.col-select{
+    width: 50px;
+}

@@ -1,0 +1,82 @@
+<form (ngSubmit)="finalizar()" #form="ngForm">
+    <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="titulo" class="form-label">Título</label>
+          <input required type="text" id="titulo" name="titulo" #name="ngModel" class="form-control" style="max-width: 100%;" [(ngModel)]="livro.titulo">
+        </div>
+        <div class="col-md-6">
+          <label for="editora" class="form-label">Editora</label>
+          <input required type="text" id="editora" [(ngModel)]="livro.editora" name="editora" #name="ngModel" class="form-control" style="max-width: 100%;">
+        </div>
+      </div>
+      
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="edicao" class="form-label">Edição</label>
+          <input required type="number" id="edicao" [(ngModel)]="livro.edicao" name="edicao" #name="ngModel" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="anoPublicacao" class="form-label">Ano Publicação</label>
+          <input required maxlength="4" type="text" id="anoPublicacao" [(ngModel)]="livro.anoPublicacao" name="anoPublicacao" #name="ngModel" class="form-control"  (input)="validaAno($event)">
+        </div>
+      </div>
+
+    <div class="row g-3 container-gray">
+        <div class="col-md-4">
+            <label for="valorBalcao" class="form-label">Valor Balcão</label>
+            <input type="number" class="form-control" id="valorBalcao" [(ngModel)]="livro.precos[0].preco" 
+            name="valorBalcao" #name="ngModel">
+        </div>
+        <div class="col-md-4">
+            <label for="valorSelfService" class="form-label">Valor Self-Service</label>
+            <input type="number" class="form-control" id="valorSelfService" [(ngModel)]="livro.precos[1].preco" 
+             name="valorSelfService" #name="ngModel">
+        </div>
+        <div class="col-md-4">
+            <label for="valorInternet" class="form-label">Valor Internet</label>
+            <input type="number" class="form-control" id="valorInternet" [(ngModel)]="livro.precos[2].preco" 
+             name="valorInternet" #name="ngModel">
+        </div>
+    </div>
+
+    <div>
+        <h3>Autores</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-select">#</th>
+                    <th scope="col">Nome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let autor of autores">
+                    <th scope="row"><input type="checkbox" [(ngModel)]="autor.checked" [name]="'autorChecked'+autor.id"
+                            #name="ngModel">
+                    </th>
+                    <td>{{autor.nome}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Assuntos</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-select">#</th>
+                    <th scope="col">Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let assunto of assuntos">
+                    <th scope="row"><input type="checkbox" [(ngModel)]="assunto.checked"
+                            [name]="'assuntoChecked'+assunto.id" #name="ngModel"></th>
+                    <td>{{assunto.descricao}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+</form>

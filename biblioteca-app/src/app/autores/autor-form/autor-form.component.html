@@ -1,0 +1,11 @@
+<form (ngSubmit)="finalizar()" #form="ngForm">
+    <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input required type="text" class="form-control" id="nome" style="max-width: 30%;" [(ngModel)]="autor.nome" 
+        name="nome"
+        #name="ngModel">
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+</form>

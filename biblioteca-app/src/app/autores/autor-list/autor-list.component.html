@@ -1,0 +1,19 @@
+<div class="container">
+    <a routerLink="/autores/novo" class="btn btn-primary">Cadastrar autor</a>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Operações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let autor of autores">
+        <td>{{autor.nome}}</td>
+        <td><a class="btn btn-primary" [routerLink]="['/autores/edit', autor.id]">Editar</a> | <a class="btn btn-danger" 
+            (click)="confirmarExcluir(autor.id)">Deletar</a></td>
+      </tr>
+    </tbody>
+  </table>

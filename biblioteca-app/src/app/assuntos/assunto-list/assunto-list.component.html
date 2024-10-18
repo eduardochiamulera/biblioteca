@@ -1,0 +1,20 @@
+<div class="container">
+    <a routerLink="/assuntos/novo" class="btn btn-primary">Cadastrar Assunto</a>
+</div>
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col">Operações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let assunto of assuntos">
+                <td>{{assunto.descricao}}</td>
+                <td><a class="btn btn-primary" [routerLink]="['/assuntos/edicao',assunto.id]">Editar</a> | <a class="btn btn-danger" (click)="confirmarExcluir(assunto.id)">Deletar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
