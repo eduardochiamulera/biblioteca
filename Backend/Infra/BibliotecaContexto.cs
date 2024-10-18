@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra
 {
-    public class BibliotecaContexto : DbContext
+	public class BibliotecaContexto : DbContext
     {
         public BibliotecaContexto( DbContextOptions<BibliotecaContexto> options ) : base( options )
         {
@@ -17,7 +17,7 @@ namespace Infra
         protected override void OnModelCreating( ModelBuilder builder )
         {
             base.OnModelCreating( builder );
-            builder.ApplyConfigurationsFromAssembly( typeof( LivroConfiguracao ).Assembly );
+			builder.ApplyConfigurationsFromAssembly( typeof( LivroConfiguracao ).Assembly );
         }
     }
 }
